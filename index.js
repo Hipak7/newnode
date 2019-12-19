@@ -155,6 +155,8 @@ app.post('/profile', upload.single('image'),userController.UploadImage);
 *      required: true
 *      description: please enter id
 *   responses:
+*    200:
+*     description: User Deleted sucessfully
 *    500:
 *     description: User not found
 */
