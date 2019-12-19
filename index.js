@@ -16,6 +16,7 @@ var swaggerDefinition={
         description:"This is myapp documentation",
         version:"1.0.0"
     },
+    
 securityDefinitions:{
 bearerAuth:{
     type:'apiKey',
@@ -88,6 +89,8 @@ app.use(bodyParser.urlencoded({extended:true}));
  * 
  */
 
+app.post('/registration',userController.Validator,userController.UserExist,
+userController.genHash,userController.Register);
 
 
 /**
@@ -124,14 +127,37 @@ app.use(bodyParser.urlencoded({extended:true}));
  * 
  * 
  */
+
+
+
 app.post('/login',authController.validation,authController.passwordChecker,authController.jwtTokenGen);
 
 app.post('/registration',userController.Validator,userController.UserExist,
 userController.genHash,userController.Register);
 app.post('/profile', upload.single('image'),userController.UploadImage);
 
-
-
+/**
+* @swagger
+* /users/{id}:
+*  delete:
+*   tags:
+*    - Delete user
+*   description: Delete user from token testing
+*   produces:
+*    - application/json
+*   consumes:
+*    - application/x-www-form-urlencoded
+*   security:
+*    - bearerAuth: []
+*   parameters:
+*    - name: id
+*      in: path
+*      required: true
+*      description: please enter id
+*   responses:
+*    500:
+*     description: User not found
+*/
 
 app.delete('/users/:id',authController.verifyToken,userController.deleteuser);
 

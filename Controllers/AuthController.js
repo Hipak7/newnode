@@ -2,11 +2,11 @@
 var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
 var users = require("../Models/UserModel.js");
-var secret = 'PleiadesIsMySecretKey';
+var secret = 'MySecretKey';
 function validation(req,res,next){
  if(req.body.username === "" || req.body.password ===""){
-    res.status(404);
-    res.json({status:404,message:'please enter the given fields'})
+    res.status(204);
+    res.json({status:406,message:'please enter the given fields'})
  }
  else{
     users.findOne({
@@ -64,8 +64,8 @@ function verifyToken(req,res,next){
 // header : authorization : Bearer ksaasdjhasdjsdhsdj
 // URL/URI
 if(req.headers.authorization === undefined){
-    res.status(401);
-    res.json({status:404,message:"unauthorized access"});
+    res.status(409);
+    res.json({status:409,message:"unauthorized access"});
 }
 var token = req.headers.authorization;
 token = token.slice(7, token.length).trimLeft();
