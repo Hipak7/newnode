@@ -1,36 +1,29 @@
-var chai = require('chai')
-var chaiHttp = require('chai-http');
-var should = chai.should()
+var chai = require('chai');
+var chaiHTTP = require('chai-http');
+var should = chai.should();
+var server = require('../index.js');
+chai.use(chaiHTTP);
 
-chai.use(chaiHttp);
 
-var server = require('../index.js')
 
-describe('Users',function(){
-
-	desribe('POST user registration test',function(){
-
-		it('it should regisetr a single user, provided username is unique and password is entered',function(done){
-
+describe('Users', function() {
+	describe('POST user registration', function() {
+	it('should register a user, provided uique username', function(done){
 		chai.request(server)
-			.post('/registration')
-			.set('content-type','application/x-www-form-urlencoded')
-			.send({
-				username:'xyz',
-				password:'xyz',
-				address:'xyz'
-			})
-			.end(function(err,res){
-
-				res.should.have.status(201);
-				res.body.should.have.property('message').eql('You have been registered succesfully')
-				done();
-			})
-
-
-		}
-
-	})
+		.post('/registration')
+		.set('content-type','application/x-www-form-urlencoded')
+		.send({
+				username:'Ram',
+				password:'ram',
+				address:'Ktm'
+		})
+		.end(function(err,res){
+			// res.epet.status(20201)
+			res.should.have.status(200);
+			done();	
+		});
+	});
+});
 
 
-})
+});
